@@ -55,7 +55,10 @@ export function GymDataProvider({ children }) {
     setClasses((prev) => prev.filter((c) => c.id !== id));
   }, []);
 
-  const bookClass = useCallback((classId, userId) => {
+  const bookClass = useCallback((targetClass, userId = 'user1') => {
+    const classId = typeof targetClass === 'object' ? targetClass.id : targetClass;
+    const classObj = classes.find((c) => c.id === classId) || (typeof targetClass === 'object' ? targetClass : null);
+
     setClasses((prev) =>
       prev.map((c) =>
         c.id === classId && c.bookedSlots < c.slots
@@ -63,16 +66,41 @@ export function GymDataProvider({ children }) {
           : c
       )
     );
-    setBookings((prev) => [
-      ...prev,
-      {
-        id: uid(),
-        userId,
-        classId,
-        status: 'Confirmed',
-        createdAt: new Date().toISOString(),
-      },
-    ]);
+
+    const branchObj = branches.find((b) => b.id === classObj?.branchId);
+
+    const newBooking = {
+      id: uid(),
+      userId,
+      classId,
+      className: classObj?.name || 'Gym Class',
+      trainer: classObj?.trainer || 'Coach',
+      branchId: classObj?.branchId || 'b1',
+      branchName: branchObj?.name || 'Nandanam',
+      date: new Date().toISOString().split('T')[0],
+      time: classObj?.time || '6:00 AM',
+      status: 'Confirmed',
+      createdAt: new Date().toISOString(),
+    };
+
+    setBookings((prev) => [newBooking, ...prev]);
+    return newBooking;
+  }, [classes, branches]);
+
+  const cancelBooking = useCallback((bookingId) => {
+    setBookings((prev) => {
+      const target = prev.find((b) => b.id === bookingId);
+      if (target?.classId) {
+        setClasses((cls) =>
+          cls.map((c) =>
+            c.id === target.classId && c.bookedSlots > 0
+              ? { ...c, bookedSlots: c.bookedSlots - 1 }
+              : c
+          )
+        );
+      }
+      return prev.filter((b) => b.id !== bookingId);
+    });
   }, []);
 
   // ── DEALS ──────────────────────────────────────────────────────────────────
@@ -134,7 +162,7 @@ export function GymDataProvider({ children }) {
         // Branch ops
         addBranch, updateBranch, deleteBranch,
         // Class ops
-        addClass, updateClass, deleteClass, bookClass,
+        addClass, updateClass, deleteClass, bookClass, cancelBooking,
         // Deal ops
         addDeal, updateDeal, deleteDeal,
         // Workout plan ops
