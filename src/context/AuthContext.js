@@ -15,17 +15,25 @@ export const ROLES = {
 };
 
 const STORAGE_KEY = '@slam_role';
+const BRANCH_STORAGE_KEY = '@slam_branch';
 
 export function AuthProvider({ children }) {
   const [role, setRole] = useState(ROLES.USER);
   const [user, setUser] = useState(MOCK_USER);
   const [loading, setLoading] = useState(true);
+  const [roleToast, setRoleToast] = useState(null);
 
-  // Restore persisted role on launch
+  // Restore persisted role and active branch on launch
   useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY)
-      .then((savedRole) => {
+    Promise.all([
+      AsyncStorage.getItem(STORAGE_KEY),
+      AsyncStorage.getItem(BRANCH_STORAGE_KEY),
+    ])
+      .then(([savedRole, savedBranch]) => {
         if (savedRole) setRole(savedRole);
+        if (savedBranch) {
+          setUser((prev) => ({ ...prev, activeBranchId: savedBranch }));
+        }
       })
       .finally(() => setLoading(false));
   }, []);
@@ -33,17 +41,42 @@ export function AuthProvider({ children }) {
   const switchRole = async (newRole) => {
     setRole(newRole);
     await AsyncStorage.setItem(STORAGE_KEY, newRole);
+    setRoleToast(
+      newRole === ROLES.ADMIN
+        ? 'Switched to ADMIN mode (Full Read & Write)'
+        : 'Switched to MEMBER mode (Read-Only)'
+    );
+    setTimeout(() => setRoleToast(null), 3000);
   };
 
   const toggleRole = () => {
     switchRole(role === ROLES.ADMIN ? ROLES.USER : ROLES.ADMIN);
   };
 
+  const setActiveBranchId = async (branchId) => {
+    setUser((prev) => ({ ...prev, activeBranchId: branchId }));
+    await AsyncStorage.setItem(BRANCH_STORAGE_KEY, branchId);
+  };
+
   const isAdmin = role === ROLES.ADMIN;
   const isUser = role === ROLES.USER;
 
   return (
-    <AuthContext.Provider value={{ role, user, isAdmin, isUser, toggleRole, switchRole, loading }}>
+    <AuthContext.Provider
+      value={{
+        role,
+        user,
+        activeBranchId: user?.activeBranchId || 'b1',
+        setActiveBranchId,
+        isAdmin,
+        isUser,
+        toggleRole,
+        switchRole,
+        roleToast,
+        setRoleToast,
+        loading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

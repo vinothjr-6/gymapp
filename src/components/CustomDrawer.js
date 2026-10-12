@@ -33,10 +33,10 @@ const NAV_ITEMS = [
 
 export default function CustomDrawer(props) {
   const { navigation } = props;
-  const { user, isAdmin, toggleRole, role } = useAuth();
+  const { user, isAdmin, toggleRole, role, activeBranchId } = useAuth();
   const { branches } = useGymData();
 
-  const activeBranch = branches.find((b) => b.id === user?.activeBranchId) || branches[0];
+  const activeBranch = branches.find((b) => b.id === activeBranchId) || branches[0];
 
   const navigate = (screen) => {
     navigation.navigate(screen);
@@ -50,21 +50,37 @@ export default function CustomDrawer(props) {
           <Text style={styles.logoText}>SLAM</Text>
           <Text style={styles.logoSub}>LIFESTYLE AND FITNESS STUDIO</Text>
         </View>
-        <View style={styles.branchTag}>
+
+        {/* Clickable Branch Selector Tag */}
+        <TouchableOpacity
+          style={styles.branchTag}
+          onPress={() => navigate('Branches')}
+          activeOpacity={0.7}
+          accessibilityLabel="Change branch location"
+        >
           <Ionicons name="location" size={13} color={COLORS.primary} />
           <Text style={styles.branchTagText}>{activeBranch?.name || 'Select Branch'}</Text>
-        </View>
-        <View style={styles.userInfo}>
+          <Ionicons name="chevron-forward" size={11} color={COLORS.primary} style={{ marginLeft: 2 }} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.userInfo}
+          onPress={() => navigate('Profile')}
+          activeOpacity={0.8}
+        >
           <View style={styles.avatarCircle}>
             <Text style={styles.avatarInitials}>
               {user?.name?.split(' ').map((n) => n[0]).join('').substring(0, 2)}
             </Text>
           </View>
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={styles.userName}>{user?.name}</Text>
-            <Text style={styles.userMembership}>{user?.membershipType}</Text>
+            <Text style={styles.userMembership}>
+              {user?.membershipType} • {user?.loyaltyPoints || 1250} Pts
+            </Text>
           </View>
-        </View>
+          <Ionicons name="chevron-forward" size={16} color={COLORS.textMuted} />
+        </TouchableOpacity>
       </View>
 
       {/* ── Nav Items ──────────────────────────────────────────────────── */}
