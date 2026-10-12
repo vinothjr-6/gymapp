@@ -21,12 +21,14 @@ import { COLORS, FONTS, SPACING, RADIUS } from '../constants/theme';
 
 const NAV_ITEMS = [
   { label: 'Home', icon: 'home-outline', screen: 'Home' },
-  { label: 'Profile', icon: 'person-outline', screen: 'Profile' },
+  { label: 'Profile & Pass', icon: 'person-outline', screen: 'Profile' },
   { label: 'My Bookings', icon: 'ticket-outline', screen: 'Bookings' },
   { label: 'My Schedule', icon: 'calendar-outline', screen: 'Classes' },
   { label: 'Workout & Diet Plan', icon: 'barbell-outline', screen: 'WorkoutDiet' },
+  { label: 'Services & Amenities', icon: 'flash-outline', screen: 'Services' },
   { label: 'Branches', icon: 'location-outline', screen: 'Branches' },
-  { label: 'Deals', icon: 'pricetag-outline', screen: 'Deals' },
+  { label: 'Deals & Passes', icon: 'pricetag-outline', screen: 'Deals' },
+  { label: 'Refer Friends', icon: 'gift-outline', screen: 'Refer' },
   { label: 'Feedback', icon: 'chatbubble-outline', screen: 'Feedback' },
   { label: 'Terms & Conditions', icon: 'document-text-outline', screen: 'Terms' },
 ];

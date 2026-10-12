@@ -58,6 +58,24 @@ export function AuthProvider({ children }) {
     await AsyncStorage.setItem(BRANCH_STORAGE_KEY, branchId);
   };
 
+  const updateUser = (data) => {
+    setUser((prev) => ({ ...prev, ...data }));
+  };
+
+  const deductPoints = (amount) => {
+    setUser((prev) => ({
+      ...prev,
+      loyaltyPoints: Math.max(0, (prev?.loyaltyPoints || 0) - amount),
+    }));
+  };
+
+  const addPoints = (amount) => {
+    setUser((prev) => ({
+      ...prev,
+      loyaltyPoints: (prev?.loyaltyPoints || 0) + amount,
+    }));
+  };
+
   const isAdmin = role === ROLES.ADMIN;
   const isUser = role === ROLES.USER;
 
@@ -68,6 +86,9 @@ export function AuthProvider({ children }) {
         user,
         activeBranchId: user?.activeBranchId || 'b1',
         setActiveBranchId,
+        updateUser,
+        deductPoints,
+        addPoints,
         isAdmin,
         isUser,
         toggleRole,

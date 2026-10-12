@@ -19,7 +19,10 @@ import WorkoutDietScreen from '../screens/WorkoutDietScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import BookingsScreen from '../screens/BookingsScreen';
 import EnquiryScreen from '../screens/EnquiryScreen';
-import PlaceholderScreen from '../screens/PlaceholderScreen';
+import ServicesScreen from '../screens/ServicesScreen';
+import ReferScreen from '../screens/ReferScreen';
+import FeedbackScreen from '../screens/FeedbackScreen';
+import TermsScreen from '../screens/TermsScreen';
 
 import { COLORS } from '../constants/theme';
 
@@ -46,10 +49,10 @@ function DrawerNavigator() {
       <Drawer.Screen name="WorkoutDiet" component={WorkoutDietScreen} />
       <Drawer.Screen name="Branches" component={BranchesScreen} />
       <Drawer.Screen name="Deals" component={DealsScreen} />
-      <Drawer.Screen name="Feedback" component={PlaceholderScreen} />
-      <Drawer.Screen name="Terms" component={PlaceholderScreen} />
-      <Drawer.Screen name="Services" component={PlaceholderScreen} />
-      <Drawer.Screen name="Refer" component={PlaceholderScreen} />
+      <Drawer.Screen name="Services" component={ServicesScreen} />
+      <Drawer.Screen name="Refer" component={ReferScreen} />
+      <Drawer.Screen name="Feedback" component={FeedbackScreen} />
+      <Drawer.Screen name="Terms" component={TermsScreen} />
     </Drawer.Navigator>
   );
 }

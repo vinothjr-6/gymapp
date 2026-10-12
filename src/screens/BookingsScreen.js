@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import RoleBanner from '../components/RoleBanner';
 import { useGymData } from '../context/GymDataContext';
@@ -151,7 +151,12 @@ export default function BookingsScreen({ navigation }) {
             <View style={styles.card}>
               <View style={styles.cardTop}>
                 <Ionicons name="person-outline" size={20} color={COLORS.primary} style={{ marginRight: 6 }} />
-                <Text style={styles.cardTitle}>{item.name}</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.cardTitle}>{item.name}</Text>
+                  {item.ticketNumber && (
+                    <Text style={styles.ticketBadge}>#{item.ticketNumber}</Text>
+                  )}
+                </View>
                 <View
                   style={[
                     styles.statusBadge,
@@ -166,25 +171,41 @@ export default function BookingsScreen({ navigation }) {
                   </Text>
                 </View>
               </View>
+
               <Text style={styles.metaText}>📞 {item.phone} • {item.type || 'Enquiry'}</Text>
+              {item.preferredTime && (
+                <Text style={styles.metaText}>⏰ Preferred Time: {item.preferredTime}</Text>
+              )}
               <Text style={styles.message}>"{item.message}"</Text>
               {item.branchName && (
                 <Text style={[styles.metaText, { marginTop: 4 }]}>Branch: SLAM {item.branchName}</Text>
               )}
 
-              {/* Status toggles for Admin */}
-              <View style={styles.enquiryActionRow}>
-                {['New', 'Contacted', 'Resolved'].map((st) => (
-                  <TouchableOpacity
-                    key={st}
-                    style={[styles.stBtn, item.status === st && styles.stBtnActive]}
-                    onPress={() => updateEnquiryStatus(item.id, st)}
-                  >
-                    <Text style={[styles.stBtnText, item.status === st && styles.stBtnTextActive]}>
-                      {st}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+              {/* Lead Actions for Admin */}
+              <View style={styles.leadActions}>
+                <TouchableOpacity
+                  style={styles.callLeadBtn}
+                  onPress={() => Linking.openURL(`tel:${item.phone.replace(/\s+/g, '')}`)}
+                  activeOpacity={0.7}
+                >
+                  <Ionicons name="call" size={12} color="#fff" />
+                  <Text style={styles.callLeadBtnText}>Call Customer</Text>
+                </TouchableOpacity>
+
+                {/* Status toggles for Admin */}
+                <View style={styles.enquiryActionRow}>
+                  {['New', 'Contacted', 'Resolved'].map((st) => (
+                    <TouchableOpacity
+                      key={st}
+                      style={[styles.stBtn, item.status === st && styles.stBtnActive]}
+                      onPress={() => updateEnquiryStatus(item.id, st)}
+                    >
+                      <Text style={[styles.stBtnText, item.status === st && styles.stBtnTextActive]}>
+                        {st}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
               </View>
             </View>
           )
@@ -249,15 +270,36 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginTop: 6,
   },
-  cancelBookingText: {
-    color: '#EF4444',
+  ticketBadge: {
+    color: COLORS.primary,
+    fontSize: 10,
+    fontWeight: FONTS.weightBold,
+    letterSpacing: 0.5,
+    marginTop: 1,
+  },
+  leadActions: {
+    marginTop: SPACING.sm,
+    gap: 8,
+  },
+  callLeadBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    alignSelf: 'flex-start',
+    backgroundColor: '#22C55E',
+    borderRadius: RADIUS.sm,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  callLeadBtnText: {
+    color: '#fff',
     fontSize: 11,
-    fontWeight: FONTS.weightSemiBold,
+    fontWeight: FONTS.weightBold,
   },
   enquiryActionRow: {
     flexDirection: 'row',
     gap: 8,
-    marginTop: SPACING.sm,
+    marginTop: 2,
   },
   stBtn: {
     backgroundColor: '#222',
