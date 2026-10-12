@@ -1,0 +1,306 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// src/constants/mockData.js
+// Seed / placeholder data for all gym entities
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const BRANCHES = [
+  {
+    id: 'b1',
+    name: 'Nandanam',
+    address: '12, 2nd Floor, SLAM Tower, Nandanam Main Road, Chennai - 600035',
+    phone: '+91 98765 43210',
+    email: 'nandanam@slamfitness.com',
+    timings: 'Mon–Sat: 5:30 AM – 10:00 PM  |  Sun: 6:00 AM – 8:00 PM',
+    facilities: ['Swimming Pool', 'Sauna', 'CrossFit Zone', 'Personal Training', 'Café'],
+    isActive: true,
+  },
+  {
+    id: 'b2',
+    name: 'Anna Nagar',
+    address: '45, 3rd Ave, Anna Nagar West, Chennai - 600040',
+    phone: '+91 98765 43211',
+    email: 'annanagar@slamfitness.com',
+    timings: 'Mon–Sat: 5:30 AM – 10:00 PM  |  Sun: 7:00 AM – 7:00 PM',
+    facilities: ['Weight Room', 'Cardio Zone', 'Group Classes', 'Steam Room'],
+    isActive: true,
+  },
+  {
+    id: 'b3',
+    name: 'Velachery',
+    address: '78, 100 Feet Road, Velachery, Chennai - 600042',
+    phone: '+91 98765 43212',
+    email: 'velachery@slamfitness.com',
+    timings: 'Mon–Sat: 6:00 AM – 9:30 PM  |  Sun: Closed',
+    facilities: ['Zumba Studio', 'Boxing Ring', 'CrossFit Zone', 'Juice Bar'],
+    isActive: true,
+  },
+  {
+    id: 'b4',
+    name: 'OMR',
+    address: 'Plot 12, Sholinganallur Signal, OMR, Chennai - 600119',
+    phone: '+91 98765 43213',
+    email: 'omr@slamfitness.com',
+    timings: 'Mon–Fri: 6:00 AM – 9:00 PM  |  Sat–Sun: 7:00 AM – 6:00 PM',
+    facilities: ['Yoga Studio', 'Aqua Aerobics', 'Weight Room', 'Cardio Zone'],
+    isActive: false,
+  },
+];
+
+export const CLASSES = [
+  {
+    id: 'c1',
+    name: 'CrossFit Blast',
+    trainer: 'Coach Arjun',
+    trainerAvatar: null,
+    branchId: 'b1',
+    time: '6:00 AM',
+    duration: '60 min',
+    days: ['Mon', 'Wed', 'Fri'],
+    slots: 15,
+    bookedSlots: 11,
+    difficulty: 'Advanced',
+    description: 'High-intensity functional fitness combining gymnastics, weightlifting, and cardio for maximum results.',
+    category: 'CrossFit',
+  },
+  {
+    id: 'c2',
+    name: 'Power Yoga Flow',
+    trainer: 'Priya Sharma',
+    trainerAvatar: null,
+    branchId: 'b1',
+    time: '7:00 AM',
+    duration: '45 min',
+    days: ['Tue', 'Thu', 'Sat'],
+    slots: 20,
+    bookedSlots: 17,
+    difficulty: 'Beginner',
+    description: 'A dynamic vinyasa-style yoga class focused on building strength, flexibility, and mindfulness.',
+    category: 'Yoga',
+  },
+  {
+    id: 'c3',
+    name: 'HIIT Circuit',
+    trainer: 'Coach Ranjith',
+    trainerAvatar: null,
+    branchId: 'b2',
+    time: '8:00 AM',
+    duration: '40 min',
+    days: ['Mon', 'Tue', 'Thu', 'Fri'],
+    slots: 18,
+    bookedSlots: 18,
+    difficulty: 'Intermediate',
+    description: 'Short explosive circuit intervals targeting total body fat burn and cardiovascular endurance.',
+    category: 'HIIT',
+  },
+  {
+    id: 'c4',
+    name: 'Strength Fundamentals',
+    trainer: 'Coach Karthik',
+    trainerAvatar: null,
+    branchId: 'b2',
+    time: '6:30 PM',
+    duration: '75 min',
+    days: ['Mon', 'Wed', 'Fri'],
+    slots: 12,
+    bookedSlots: 5,
+    difficulty: 'Beginner',
+    description: 'Learn correct lifting technique for the squat, bench, and deadlift under expert coaching.',
+    category: 'Strength',
+  },
+  {
+    id: 'c5',
+    name: 'Zumba Fiesta',
+    trainer: 'Divya Nair',
+    trainerAvatar: null,
+    branchId: 'b3',
+    time: '7:30 PM',
+    duration: '50 min',
+    days: ['Tue', 'Thu', 'Sat'],
+    slots: 25,
+    bookedSlots: 22,
+    difficulty: 'Beginner',
+    description: 'Latin-inspired dance cardio class – burn calories while having an absolute blast!',
+    category: 'Dance',
+  },
+];
+
+export const DEALS = [
+  {
+    id: 'd1',
+    title: 'Annual Gold Membership',
+    subtitle: 'Best Value – Save ₹6,000!',
+    originalPrice: 24000,
+    discountedPrice: 18000,
+    badge: 'BEST SELLER',
+    badgeColor: '#D31027',
+    features: ['Unlimited Access All Branches', 'Free Personal Training (2 sessions)', 'Free Nutrition Consultation', 'Locker Included', 'Guest Pass x 3'],
+    validTill: '2026-12-31',
+    isActive: true,
+  },
+  {
+    id: 'd2',
+    title: '3-Month Starter Pack',
+    subtitle: 'Perfect for beginners',
+    originalPrice: 8000,
+    discountedPrice: 5500,
+    badge: 'POPULAR',
+    badgeColor: '#D97706',
+    features: ['Single Branch Access', 'Group Classes Included', 'Diet Chart (1x)', 'Progress Tracking App'],
+    validTill: '2026-12-31',
+    isActive: true,
+  },
+  {
+    id: 'd3',
+    title: '3-Day Free Trial Pass',
+    subtitle: 'No strings attached – try us!',
+    originalPrice: 0,
+    discountedPrice: 0,
+    badge: 'FREE',
+    badgeColor: '#22C55E',
+    features: ['Access to all facilities for 3 days', 'Includes 1 Group Class', 'Free Fitness Assessment'],
+    validTill: null,
+    isActive: true,
+  },
+  {
+    id: 'd4',
+    title: 'Student Offer – 6 Months',
+    subtitle: 'Valid college ID required',
+    originalPrice: 12000,
+    discountedPrice: 7000,
+    badge: 'STUDENT',
+    badgeColor: '#3B82F6',
+    features: ['Single Branch Access', 'All Group Classes', 'Locker Included'],
+    validTill: '2026-11-30',
+    isActive: true,
+  },
+];
+
+export const WORKOUT_PLANS = [
+  {
+    id: 'wp1',
+    title: '4-Day Muscle Hypertrophy Split',
+    level: 'Intermediate',
+    goal: 'Muscle Building',
+    duration: '8 Weeks',
+    daysPerWeek: 4,
+    description: 'A proven push-pull-legs split targeting all major muscle groups for size and strength gains.',
+    days: [
+      {
+        day: 'Day 1 – Chest & Triceps',
+        exercises: [
+          { name: 'Barbell Bench Press', sets: '4', reps: '8–10', rest: '90s' },
+          { name: 'Incline Dumbbell Press', sets: '3', reps: '10–12', rest: '75s' },
+          { name: 'Cable Fly', sets: '3', reps: '12–15', rest: '60s' },
+          { name: 'Tricep Rope Pushdown', sets: '3', reps: '12–15', rest: '60s' },
+          { name: 'Overhead Tricep Extension', sets: '3', reps: '10–12', rest: '60s' },
+        ],
+      },
+      {
+        day: 'Day 2 – Back & Biceps',
+        exercises: [
+          { name: 'Deadlift', sets: '4', reps: '6–8', rest: '120s' },
+          { name: 'Bent-over Barbell Row', sets: '4', reps: '8–10', rest: '90s' },
+          { name: 'Pull-ups', sets: '3', reps: 'Max', rest: '90s' },
+          { name: 'Barbell Curl', sets: '3', reps: '10–12', rest: '60s' },
+          { name: 'Hammer Curl', sets: '3', reps: '12', rest: '60s' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'wp2',
+    title: 'Beginner Strength Foundation',
+    level: 'Beginner',
+    goal: 'Strength',
+    duration: '6 Weeks',
+    daysPerWeek: 3,
+    description: 'Full-body compound movement program for beginners to build a solid strength base and movement patterns.',
+    days: [
+      {
+        day: 'Day 1 – Full Body A',
+        exercises: [
+          { name: 'Goblet Squat', sets: '3', reps: '10', rest: '90s' },
+          { name: 'Dumbbell Row', sets: '3', reps: '10', rest: '75s' },
+          { name: 'Push-up', sets: '3', reps: 'Max', rest: '60s' },
+          { name: 'Plank', sets: '3', reps: '30s hold', rest: '45s' },
+        ],
+      },
+    ],
+  },
+];
+
+export const DIET_PLANS = [
+  {
+    id: 'dp1',
+    title: 'High-Protein Fat Loss Diet',
+    goal: 'Fat Loss',
+    calories: 1800,
+    protein: 160,
+    carbs: 120,
+    fat: 55,
+    description: 'A structured macronutrient plan designed to preserve muscle mass while achieving a consistent caloric deficit.',
+    meals: [
+      {
+        time: '7:00 AM – Breakfast',
+        items: ['5 Egg Whites + 1 Whole Egg Omelette', '2 Slices Whole Grain Toast', '1 Cup Green Tea'],
+      },
+      {
+        time: '10:00 AM – Snack',
+        items: ['200g Greek Yogurt', '1 Banana', 'Handful of Almonds (20g)'],
+      },
+      {
+        time: '1:00 PM – Lunch',
+        items: ['200g Grilled Chicken Breast', '1 Cup Brown Rice', 'Steamed Broccoli + Carrots'],
+      },
+      {
+        time: '4:00 PM – Pre-Workout',
+        items: ['1 Scoop Whey Protein in Water', '1 Apple'],
+      },
+      {
+        time: '8:00 PM – Dinner',
+        items: ['200g Grilled Fish (Tilapia / Basa)', '2 Chapatis (Whole Wheat)', 'Mixed Vegetable Salad with Olive Oil'],
+      },
+    ],
+  },
+];
+
+export const BOOKINGS = [
+  {
+    id: 'bk1',
+    userId: 'user1',
+    classId: 'c1',
+    className: 'CrossFit Blast',
+    branchId: 'b1',
+    branchName: 'Nandanam',
+    date: '2026-10-14',
+    time: '6:00 AM',
+    status: 'Confirmed',
+  },
+];
+
+export const ENQUIRIES = [
+  {
+    id: 'eq1',
+    name: 'Rahul Verma',
+    phone: '+91 9876543210',
+    email: 'rahul@example.com',
+    message: 'Interested in Annual Gold Membership. Please call me.',
+    branchId: 'b1',
+    branchName: 'Nandanam',
+    type: 'Membership',
+    status: 'New',
+    createdAt: '2026-10-11T10:30:00Z',
+  },
+];
+
+export const MOCK_USER = {
+  id: 'user1',
+  name: 'Vinoth JR',
+  email: 'vinoth@slamfitness.com',
+  phone: '+91 98765 00000',
+  membershipType: 'Annual Gold',
+  memberSince: 'January 2025',
+  loyaltyPoints: 1250,
+  activeBranchId: 'b1',
+  referralCode: 'SLAM-VIN-001',
+};
